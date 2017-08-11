@@ -5,12 +5,28 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
+
+// Paginas
+import * as page from '../pages';
+
+// Components
+import * as components from "../components";
+ 
+// Services
+import * as services from "../services"
 
 @NgModule({
   declarations: [
-    MyApp,
-    HomePage
+    components.BackgroundImage,
+    components.ColorRadio,
+    components.CounterInput,
+    components.GoogleMap,
+    components.PreloadImage,
+    components.Rating,
+    components.ShowHideContainer,
+    components.ShowHideInput,
+    page.HomePage,
+    MyApp
   ],
   imports: [
     BrowserModule,
@@ -18,13 +34,15 @@ import { HomePage } from '../pages/home/home';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    HomePage
+    page.HomePage,
+    MyApp
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    services.FacebookLoginService,
+    services.GoogleLoginService
   ]
 })
-export class AppModule {}
+export class AppModule { }
