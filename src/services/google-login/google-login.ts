@@ -21,12 +21,12 @@ export class GoogleLoginService {
         'webClientId': this.webClientId, // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
         'offline': true
       })
-        .then(function (user) {
+        .then((user) => {
           env.setGoogleUser(user)
-            .then(function (res) {
+            .then((res) => {
               resolve(res);
             });
-        }, function (error) {
+        }, (error) => {
           reject(error);
         });
     });
@@ -40,12 +40,12 @@ export class GoogleLoginService {
         'webClientId': this.webClientId, // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
         'offline': true
       })
-        .then(function (user) {
+        .then((user) => {
           env.setGoogleUser(user)
-            .then(function (res) {
+            .then((res) => {
               resolve(res);
             });
-        }, function (error) {
+        }, (error) => {
           reject(error);
         });
     });
@@ -54,11 +54,11 @@ export class GoogleLoginService {
   doGoogleLogout() {
     return new Promise((resolve, reject) => {
       this.gp.logout()
-        .then(function (response) {
+        .then((response) => {
           //user logged out so we will remove him from the NativeStorage
           (new NativeStorage).remove('google_user');
           resolve();
-        }, function (error) {
+        }, (error) => {
           reject(error);
         });
     });
@@ -97,5 +97,5 @@ export class GoogleLoginService {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
   }
-
+  
 }

@@ -19,17 +19,17 @@ export class FacebookLoginService {
 
         return new Promise<FacebookUserModel>((resolve, reject) => {
             //["public_profile"] is the array of permissions, you can add more if you need
-            this.fb.login(["public_profile"]).then(function (response:FacebookLoginResponse) {
+            this.fb.login(["public_profile"]).then((response:FacebookLoginResponse) => {
                 //Getting name and gender properties
                 this.fb.api("/me?fields=name,gender", [])
-                    .then(function (user) {
+                    .then((user) => {
                         //now we have the users info, let's save it in the NativeStorage
                         env.setFacebookUser(user)
-                            .then(function (res) {
+                            .then((res) => {
                                 resolve(res);
                             });
                     })
-            }, function (error) {
+            }, (error) => {
                 reject(error);
             });
         });
@@ -38,11 +38,11 @@ export class FacebookLoginService {
     doFacebookLogout() {
         return new Promise((resolve, reject) => {
             this.fb.logout()
-                .then(function (res) {
+                .then((res) => {
                     //user logged out so we will remove him from the NativeStorage
                     this.ns.remove('facebook_user');
                     resolve();
-                }, function (error) {
+                }, (error) => {
                     reject();
                 });
         });
@@ -64,8 +64,7 @@ export class FacebookLoginService {
                             image: "https://graph.facebook.com/" + user.id + "/picture?type=large",
                             friends: data.friends,
                             photos: data.photos
-                        })
-                    );
+                        }));
                 });
         });
     }
