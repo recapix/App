@@ -27,7 +27,9 @@
     "scss-lint": "scss-lint",
     "outdated": "npm outdated --depth 0",
     "post-install": "webdriver-manager update",
-    "commitmsg": "validate-commit-msg"
+    "commitmsg": "validate-commit-msg",
+    "report-coverage": "cat ./coverage/lcov.info | codecov",
+    "check-coverage": "istanbul check-coverage --statements 100 --branches 90 --functions 100 --lines 100"
   },
   "betterScripts": {
     "dev": {
