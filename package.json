@@ -27,8 +27,6 @@
     "scss-lint": "scss-lint",
     "outdated": "npm outdated --depth 0",
     "post-install": "webdriver-manager update",
-    "precommit": "npm run lint",
-    "prepush": "npm test",
     "commitmsg": "validate-commit-msg"
   },
   "betterScripts": {
