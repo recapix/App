@@ -1,4 +1,4 @@
-sudo: true
+sudo: false
 language: node_js
 cache:
   directories:
@@ -13,6 +13,4 @@ node_js:
 before_script:
   - npm install
 script:
-  - npm test
-  - npm run e2e
-  
+  - npm run test
