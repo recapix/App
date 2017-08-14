@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/toPromise';
-import { NativeStorage } from '@ionic-native/native-storage';
+import { Http } from "@angular/http";
+import "rxjs/add/operator/toPromise";
+import { NativeStorage } from "@ionic-native/native-storage";
 import { FacebookUserModel } from "../../models/facebook-login";
 
-import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import { Facebook, FacebookLoginResponse } from "@ionic-native/facebook";
 
 @Injectable()
 export class FacebookLoginService {
@@ -19,16 +19,16 @@ export class FacebookLoginService {
 
         return new Promise<FacebookUserModel>((resolve, reject) => {
             //["public_profile"] is the array of permissions, you can add more if you need
-            this.fb.login(["public_profile"]).then((response:FacebookLoginResponse) => {
+            this.fb.login(["public_profile"]).then((response: FacebookLoginResponse) => {
                 //Getting name and gender properties
                 this.fb.api("/me?fields=name,gender", [])
                     .then((user) => {
-                        //now we have the users info, let's save it in the NativeStorage
+                        //now we have the users info, let"s save it in the NativeStorage
                         env.setFacebookUser(user)
                             .then((res) => {
                                 resolve(res);
                             });
-                    })
+                    });
             }, (error) => {
                 reject(error);
             });
@@ -40,7 +40,7 @@ export class FacebookLoginService {
             this.fb.logout()
                 .then((res) => {
                     //user logged out so we will remove him from the NativeStorage
-                    this.ns.remove('facebook_user');
+                    this.ns.remove("facebook_user");
                     resolve();
                 }, (error) => {
                     reject();
@@ -49,35 +49,35 @@ export class FacebookLoginService {
     }
 
     getFacebookUser() {
-        return this.ns.getItem('facebook_user');
+        return this.ns.getItem("facebook_user");
     }
 
     setFacebookUser(user: any) {
         return new Promise<FacebookUserModel>((resolve, reject) => {
             this.getFriendsFakeData()
                 .then(data => {
-                    resolve(this.ns.setItem('facebook_user',
+                    resolve(this.ns.setItem("facebook_user",
                         {
                             userId: user.id,
                             name: user.name,
                             gender: user.gender,
-                            image: "https://graph.facebook.com/" + user.id + "/picture?type=large",
+                            image: `https://graph.facebook.com/${user.id}/picture?type=large`,
                             friends: data.friends,
-                            photos: data.photos
+                            photos: data.photos,
                         }));
                 });
         });
     }
 
     getFriendsFakeData(): Promise<FacebookUserModel> {
-        return this.http.get('./assets/example_data/social_integrations.json')
+        return this.http.get("./assets/example_data/social_integrations.json")
             .toPromise()
             .then(response => response.json() as FacebookUserModel)
             .catch(this.handleError);
     }
 
     private handleError(error: any): Promise<any> {
-        console.error('An error occurred', error); // for demo purposes only
+        console.error("An error occurred", error); // for demo purposes only
         return Promise.reject(error.message || error);
     }
 }
