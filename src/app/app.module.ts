@@ -1,8 +1,9 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { ErrorHandler, NgModule } from "@angular/core";
+import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { StatusBar } from "@ionic-native/status-bar";
+import { HttpModule } from '@angular/http';
 
 import { MyApp } from "./app.component";
 
@@ -10,39 +11,42 @@ import { MyApp } from "./app.component";
 import * as page from "../pages";
 
 // Components
-import * as components from "../components";
-
-// Services
-import * as services from "../services"
+import {
+  BackgroundImage, ColorRadio, CounterInput, GoogleMap, PreloadImage, Rating, ShowHideContainer, ShowHideInput
+} from "../components";
 
 @NgModule({
   declarations: [
-    components.BackgroundImage,
-    components.ColorRadio,
-    components.CounterInput,
-    components.GoogleMap,
-    components.PreloadImage,
-    components.Rating,
-    components.ShowHideContainer,
-    components.ShowHideInput,
+    BackgroundImage,
+    ColorRadio,
+    CounterInput,
+    GoogleMap,
+    PreloadImage,
+    Rating,
+    ShowHideContainer,
+    ShowHideInput,
     page.HomePage,
+    page.LoginPage,
+    page.WalkthroughPage,
     MyApp
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     page.HomePage,
+    page.LoginPage,
+    page.WalkthroughPage,
     MyApp
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler },
-    services.FacebookLoginService,
-    services.GoogleLoginService
-  ]
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

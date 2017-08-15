@@ -4,7 +4,7 @@ import "rxjs/add/operator/toPromise";
 import { NativeStorage } from "@ionic-native/native-storage";
 import { FacebookUserModel } from "../../models/facebook-login";
 
-import { Facebook, FacebookLoginResponse } from "@ionic-native/facebook";
+import { Facebook } from "@ionic-native/facebook";
 
 @Injectable()
 export class FacebookLoginService {
@@ -19,7 +19,7 @@ export class FacebookLoginService {
 
         return new Promise<FacebookUserModel>((resolve, reject) => {
             //["public_profile"] is the array of permissions, you can add more if you need
-            this.fb.login(["public_profile"]).then((response: FacebookLoginResponse) => {
+            this.fb.login(["public_profile"]).then((response) => {
                 //Getting name and gender properties
                 this.fb.api("/me?fields=name,gender", [])
                     .then((user) => {
