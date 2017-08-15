@@ -3,8 +3,7 @@ import { NavController, LoadingController } from 'ionic-angular';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 
 // import { TabsNavigationPage } from '../tabs-navigation/tabs-navigation';
-// import { SignupPage } from '../signup/signup';
-// import { ForgotPasswordPage } from '../forgot-password/forgot-password';
+ import { SignupPage, ForgotPasswordPage } from '../';
 
 @Component({
   selector: 'login-page',
@@ -41,10 +40,12 @@ export class LoginPage {
 
 
   goToSignup() {
-    // this.nav.push(SignupPage);
+    debugger;
+    this.nav.push(SignupPage);
   }
 
   goToForgotPassword() {
-    // this.nav.push(ForgotPasswordPage);
+    debugger;
+    this.nav.push(ForgotPasswordPage);
   }
 }

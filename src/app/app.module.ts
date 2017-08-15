@@ -11,22 +11,24 @@ import { MyApp } from "./app.component";
 import * as page from "../pages";
 
 // Components
-import {
-  BackgroundImage, ColorRadio, CounterInput, GoogleMap, PreloadImage, Rating, ShowHideContainer, ShowHideInput
-} from "../components";
+import * as components from "../components";
 
 @NgModule({
   declarations: [
-    BackgroundImage,
-    ColorRadio,
-    CounterInput,
-    GoogleMap,
-    PreloadImage,
-    Rating,
-    ShowHideContainer,
-    ShowHideInput,
+    components.BackgroundImage,
+    components.ColorRadio,
+    components.CounterInput,
+    components.GoogleMap,
+    components.PreloadImage,
+    components.Rating,
+    components.ShowHideContainer,
+    components.ShowHideInput,
+    page.ForgotPasswordPage,
     page.HomePage,
     page.LoginPage,
+    page.PrivacyPolicyPage,
+    page.SignupPage,
+    page.TermsOfServicePage,
     page.WalkthroughPage,
     MyApp
   ],
@@ -37,8 +39,12 @@ import {
   ],
   bootstrap: [IonicApp],
   entryComponents: [
+    page.ForgotPasswordPage,
     page.HomePage,
     page.LoginPage,
+    page.PrivacyPolicyPage,
+    page.SignupPage,
+    page.TermsOfServicePage,
     page.WalkthroughPage,
     MyApp
   ],
