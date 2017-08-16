@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 
-// import { TabsNavigationPage } from '../tabs-navigation/tabs-navigation';
- import { SignupPage, ForgotPasswordPage } from '../';
+import { HomePage, SignupPage, ForgotPasswordPage } from '../';
 
 @Component({
   selector: 'login-page',
@@ -18,7 +17,7 @@ export class LoginPage {
     public nav: NavController,
     public loadingCtrl: LoadingController
   ) {
-    // this.main_page = { component: TabsNavigationPage };
+    this.main_page = { component: HomePage };
 
     this.login = new FormGroup({
       email: new FormControl('', Validators.required),
@@ -26,8 +25,8 @@ export class LoginPage {
     });
   }
 
-  doLogin(){
-    // this.nav.setRoot(this.main_page.component);
+  doLogin() {
+    this.nav.setRoot(this.main_page.component);
   }
 
   doFacebookLogin() {
