@@ -21,8 +21,6 @@ import { AngularFireModule } from "angularfire2";
 import { FirebaseProvider } from "./../providers/firebase/firebase";
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
-
-
 @NgModule({
   declarations: [
     components.BackgroundImage,

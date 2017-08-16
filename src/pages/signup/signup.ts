@@ -1,43 +1,54 @@
-import { Component } from '@angular/core';
-import { NavController, ModalController, LoadingController } from 'ionic-angular';
-import { Validators, FormGroup, FormControl } from '@angular/forms';
+import { Component } from "@angular/core";
+import { NavController, ModalController, LoadingController, AlertController } from "ionic-angular";
+import { Validators, FormGroup, FormControl } from "@angular/forms";
 
-import { TermsOfServicePage } from '../';
-import { PrivacyPolicyPage } from '../';
+import { TermsOfServicePage } from "../terms-of-service/terms-of-service";
+import { PrivacyPolicyPage } from "../privacy-policy/privacy-policy";
+import { HomePage } from '../';
+
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
-  selector: 'signup-page',
-  templateUrl: 'signup.html'
+  selector: "ib-signup-page",
+  templateUrl: "signup.html"
 })
 export class SignupPage {
   signup: FormGroup;
-  main_page: { component: any };
   loading: any;
 
   constructor(
     public nav: NavController,
     public modal: ModalController,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    public afAuth: AngularFireAuth,
+    public alertCtrl: AlertController,
   ) {
 
     this.signup = new FormGroup({
-      name: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
-      confirm_password: new FormControl('', Validators.required)
+      email: new FormControl("", Validators.required),
+      password: new FormControl("test", Validators.required),
+      confirm_password: new FormControl("test", Validators.required)
     });
   }
 
-  doSignup(){
-    this.nav.setRoot(this.main_page.component);
+  doSignup() {
+    this.afAuth.auth
+      .createUserWithEmailAndPassword(this.signup.value.email, this.signup.value.password)
+      .then(() => {
+          this.nav.setRoot(HomePage);
+      })
+      .catch((e: any) => {
+           let alert = this.alertCtrl.create({
+                    title: 'Auth Error',
+                    subTitle: e.message,
+                    buttons: ['Close']
+                });
+          alert.present();
+      });
+
   }
 
   doFacebookSignup() {
-    this.loading = this.loadingCtrl.create();    
-  }
-
-  doGoogleSignup() {
-    this.loading = this.loadingCtrl.create();
   }
 
   showTermsModal() {
@@ -49,4 +60,5 @@ export class SignupPage {
     let modal = this.modal.create(PrivacyPolicyPage);
     modal.present();
   }
+
 }
