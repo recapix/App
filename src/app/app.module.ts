@@ -3,6 +3,7 @@ import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { StatusBar } from "@ionic-native/status-bar";
+import { NativeStorage } from "@ionic-native/native-storage";
 import { HttpModule } from '@angular/http';
 
 import { MyApp } from "./app.component";
@@ -12,6 +13,15 @@ import * as page from "../pages";
 
 // Components
 import * as components from "../components";
+
+// Firebase
+import { environment } from "./app.environment"; 
+import { AngularFireDatabaseModule } from "angularfire2/database";
+import { AngularFireModule } from "angularfire2";
+import { FirebaseProvider } from "./../providers/firebase/firebase";
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
+
 
 @NgModule({
   declarations: [
@@ -35,7 +45,11 @@ import * as components from "../components";
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule
+    HttpModule,
+    AngularFireDatabaseModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -51,7 +65,9 @@ import * as components from "../components";
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    NativeStorage,
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    FirebaseProvider
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

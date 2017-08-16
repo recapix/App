@@ -37,14 +37,11 @@ export class LoginPage {
     this.loading = this.loadingCtrl.create();
   }
 
-
   goToSignup() {
-    debugger;
     this.nav.push(SignupPage);
   }
 
   goToForgotPassword() {
-    debugger;
     this.nav.push(ForgotPasswordPage);
   }
 }
