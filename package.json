@@ -10,7 +10,7 @@
     "build-dev": "bnr build-dev",
     "test": "bnr test",
     "test:watch": "bnr test-watch",
-    "e2e": "node config/protractor.server.js",
+    "e2e": "node config/protractor.server.js --no-webdriver-update",
     "e2e:interactive": "node config/protractor.server.js --elementExplorer",
     "ionic:serve": "ionic-app-scripts serve",
     "ionic:build": "ionic-app-scripts build",
@@ -26,7 +26,7 @@
     "lint": "tslint \"src/**/*.ts\"",
     "scss-lint": "scss-lint",
     "outdated": "npm outdated --depth 0",
-    "post-install": "webdriver-manager update",
+    "post-install": "webdriver-manager update --standalone false --gecko false",
     "commitmsg": "validate-commit-msg",
     "report-coverage": "cat ./coverage/lcov.info | codecov",
     "check-coverage": "istanbul check-coverage --statements 100 --branches 90 --functions 100 --lines 100"

@@ -5,6 +5,7 @@ import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { HomePage, SignupPage, ForgotPasswordPage } from '../';
 
 import { AngularFireAuth } from 'angularfire2/auth';
+import { StorageService } from "../../services";
 
 @Component({
   selector: 'login-page',
@@ -19,9 +20,9 @@ export class LoginPage {
     public nav: NavController,
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
-    public afAuth: AngularFireAuth
+    public afAuth: AngularFireAuth,
+    private appStorage: StorageService
   ) {
-    this.loading = this.loadingCtrl.create();
 
     this.main_page = { component: HomePage };
 
@@ -32,12 +33,15 @@ export class LoginPage {
   }
 
   doLogin() {
-    this.loading.present();
+    this.showLoading();
     this.afAuth.auth
       .signInWithEmailAndPassword(this.login.value.email, this.login.value.password)
-      .then(() => {
-        this.loading.dismiss();
-        this.nav.setRoot(this.main_page.component);
+      .then(resolve => { 
+        this.appStorage.set("auth.user", { uid: resolve.uid, email: resolve.email }).then(() => {
+          this.loading.dismiss();
+          debugger;
+          this.nav.setRoot(this.main_page.component);
+        });
       })
       .catch((a: any) => {
         this.loading.dismiss();
@@ -75,4 +79,10 @@ export class LoginPage {
   goToForgotPassword() {
     this.nav.push(ForgotPasswordPage);
   }
+
+  showLoading(){    
+    this.loading = this.loadingCtrl.create();
+    this.loading.present();
+  }
+
 }

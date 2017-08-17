@@ -32,13 +32,11 @@ export class WalkthroughPage {
   }
 
   goToLogin() {
-    debugger;
     console.log("Navigate to LoginPage");
     this.nav.push(LoginPage);
   }
 
   goToSignup() {
-    debugger;
     console.log("Navigate to SignupPage");
     this.nav.push(SignupPage);
   }

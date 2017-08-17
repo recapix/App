@@ -10,7 +10,7 @@ import * as pages from '../pages';
 export class MyApp {
   rootPage: any = pages.WalkthroughPage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(platform: Platform, splashScreen: SplashScreen,statusBar: StatusBar) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.

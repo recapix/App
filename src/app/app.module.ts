@@ -21,6 +21,9 @@ import { AngularFireModule } from "angularfire2";
 import { FirebaseProvider } from "./../providers/firebase/firebase";
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
+// Services
+import { StorageService } from "../services";
+
 @NgModule({
   declarations: [
     components.BackgroundImage,
@@ -65,7 +68,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     SplashScreen,
     NativeStorage,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    FirebaseProvider
+    FirebaseProvider,
+    StorageService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

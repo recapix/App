@@ -20,8 +20,8 @@ exports.config = {
     },
     framework: 'jasmine2',
     specs: [
-        helpers.root('src/**/**.e2e.ts'),
-        helpers.root('src/**/*.e2e.ts')
+        helpers.root('tests/**/**.e2e.ts'),
+        helpers.root('tests/**/*.e2e.ts')
     ],
     directConnect: true,
     jasmineNodeOpts: {

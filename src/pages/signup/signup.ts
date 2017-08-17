@@ -7,6 +7,7 @@ import { PrivacyPolicyPage } from "../privacy-policy/privacy-policy";
 import { HomePage } from '../';
 
 import { AngularFireAuth } from 'angularfire2/auth';
+import { NativeStorage } from "@ionic-native/native-storage";
 
 @Component({
   selector: "ib-signup-page",
@@ -15,6 +16,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class SignupPage {
   signup: FormGroup;
   loading: any;
+  main_page: { component: any };
 
   constructor(
     public nav: NavController,
@@ -22,28 +24,33 @@ export class SignupPage {
     public loadingCtrl: LoadingController,
     public afAuth: AngularFireAuth,
     public alertCtrl: AlertController,
+    private nstorage: NativeStorage
   ) {
-
+    this.main_page = { component: HomePage };
     this.signup = new FormGroup({
+      name: new FormControl("", Validators.required),
       email: new FormControl("", Validators.required),
-      password: new FormControl("test", Validators.required),
-      confirm_password: new FormControl("test", Validators.required)
+      password: new FormControl("", Validators.required),
+      confirm_password: new FormControl("", Validators.required)
     });
   }
 
   doSignup() {
+    this.showLoading();
     this.afAuth.auth
       .createUserWithEmailAndPassword(this.signup.value.email, this.signup.value.password)
-      .then(() => {
-          this.nav.setRoot(HomePage);
+      .then((resolve) => {
+        this.nstorage.setItem("auth-user", { uid: resolve.uid, email: resolve.email }).then(() => {
+          this.nav.setRoot(this.main_page.component); 
+        });
       })
       .catch((e: any) => {
-           let alert = this.alertCtrl.create({
-                    title: 'Auth Error',
-                    subTitle: e.message,
-                    buttons: ['Close']
-                });
-          alert.present();
+        let alert = this.alertCtrl.create({
+          title: 'Authentication error!',
+          subTitle: e.message,
+          buttons: ['Close']
+        });
+        alert.present();
       });
 
   }
@@ -61,4 +68,8 @@ export class SignupPage {
     modal.present();
   }
 
+  showLoading(){    
+    this.loading = this.loadingCtrl.create();
+    this.loading.present();
+  }
 }
