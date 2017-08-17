@@ -1,34 +1,32 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, Slides } from 'ionic-angular';
 
- import { LoginPage, SignupPage } from '../';
+import { LoginPage, SignupPage } from '../';
 
 @Component({
   selector: 'walkthrough-page',
   templateUrl: 'walkthrough.html'
 })
 export class WalkthroughPage {
+  constructor(public nav: NavController) { }
 
   lastSlide = false;
 
-  @ViewChild('slider') slider: Slides;
+  @ViewChild('slider') slider: any;
 
-  constructor(public nav: NavController) {
-
-  }
+  get pageSlider() {
+    return this.slider;
+  };
 
   skipIntro() {
-    // You can skip to main app
-    // this.nav.setRoot(TabsNavigationPage);
-
-    // Or you can skip to last slide (login/signup slide)
     this.lastSlide = true;
-    this.slider.slideTo(this.slider.length());
+    var maxItemLength = this.pageSlider.length();
+    this.pageSlider.slideTo(maxItemLength);
   }
 
   onSlideChanged() {
     // If it's the last slide, then hide the 'Skip' button on the header
-    this.lastSlide = this.slider.isEnd();
+    this.lastSlide = this.pageSlider.isEnd();
   }
 
   goToLogin() {

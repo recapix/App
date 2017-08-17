@@ -11,7 +11,7 @@
     "test": "bnr test",
     "test:watch": "bnr test-watch",
     "e2e": "node config/protractor.server.js --no-webdriver-update",
-    "e2e:interactive": "node config/protractor.server.js --elementExplorer",
+    "e2e:interactive": "node config/protractor.server.js --elementExplorer --no-webdriver-update",
     "ionic:serve": "ionic-app-scripts serve",
     "ionic:build": "ionic-app-scripts build",
     "ios:dev": "bnr ios:dev",
