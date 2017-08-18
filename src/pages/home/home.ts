@@ -1,27 +1,36 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import filter from 'lodash-es/filter';
+import { Component } from "@angular/core";
+import { NavController, ToastController } from "ionic-angular";
+import * as lodash from "lodash-es/filter";
+import { StorageService } from "../../services";
+import { WalkthroughPage } from "../";
+import { AngularFireDatabase, FirebaseObjectObservable } from "angularfire2/database";
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+    selector: "page-home",
+    templateUrl: "home.html"
 })
 export class HomePage {
- public user: any;
 
-    constructor(public navCtrl: NavController) {
-        const myArr = [
-            {
-                name: 'barney',
-                age: 36,
-                active: true,
-            },
-            {
-                name: 'fred',
-                age: 40,
-                active: false,
-            }];
+    constructor(public navCtrl: NavController,
+        private AppStorage: StorageService,
+        private db: AngularFireDatabase,
+        private toastCtrl: ToastController) {
 
-        this.user = (filter(myArr, o => o.active))[0];
+        AppStorage.get("auth.user")
+            .then((value: any) => {
+                if (value == null) {
+                    this.navCtrl.setRoot(WalkthroughPage);
+                }
+                this.db.object(`/profile/${value.uid}/user`)
+                    .subscribe((observer) => {
+                        let toast = this.toastCtrl.create({
+                            message: `Welcome ${observer.name}`,
+                            showCloseButton: true,
+                            closeButtonText: 'Ok'
+                        });
+                        toast.present();
+                    });
+            });
+
     }
 }
