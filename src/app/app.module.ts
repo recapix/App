@@ -38,7 +38,11 @@ import { StorageService } from "../services";
     page.HomePage,
     page.LoginPage,
     page.PrivacyPolicyPage,
+    page.ProfilePage,
+    page.SearchPage,
+    page.SettingsPage,
     page.SignupPage,
+    page.TabsNavigationPage,
     page.TermsOfServicePage,
     page.WalkthroughPage,
     MyApp
@@ -58,7 +62,11 @@ import { StorageService } from "../services";
     page.HomePage,
     page.LoginPage,
     page.PrivacyPolicyPage,
+    page.ProfilePage,
+    page.SearchPage,
+    page.SettingsPage,
     page.SignupPage,
+    page.TabsNavigationPage,
     page.TermsOfServicePage,
     page.WalkthroughPage,
     MyApp

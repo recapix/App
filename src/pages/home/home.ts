@@ -1,13 +1,8 @@
 import { Component } from "@angular/core";
-import { NavController } from "ionic-angular";
-import filter from "lodash-es/filter";
-
-import { AngularFireAuth } from "angularfire2/auth";
-
+import { NavController, ToastController } from "ionic-angular";
+import * as lodash from "lodash-es/filter";
 import { StorageService } from "../../services";
-
 import { WalkthroughPage } from "../";
-
 import { AngularFireDatabase, FirebaseObjectObservable } from "angularfire2/database";
 
 @Component({
@@ -15,31 +10,26 @@ import { AngularFireDatabase, FirebaseObjectObservable } from "angularfire2/data
     templateUrl: "home.html"
 })
 export class HomePage {
-    public user: FirebaseObjectObservable<any>;
 
     constructor(public navCtrl: NavController,
-        private afAuth: AngularFireAuth,
         private AppStorage: StorageService,
-        private db: AngularFireDatabase) {
+        private db: AngularFireDatabase,
+        private toastCtrl: ToastController) {
+
         AppStorage.get("auth.user")
-            .then((value:any) => {
+            .then((value: any) => {
                 if (value == null) {
                     this.navCtrl.setRoot(WalkthroughPage);
                 }
-                debugger;
-              this.user = this.db.object(`/profile/${value.uid}/user`)
+                this.db.object(`/profile/${value.uid}/user`)
+                    .subscribe((observer) => {
+                        let toast = this.toastCtrl.create({
+                            message: `Welcome ${observer.name}`,
+                            duration: 3000
+                        });
+                        toast.present();
+                    });
             });
 
-        // afAuth.authState.subscribe(user => {
-        //     debugger;
-        //     if (!user) {
-        //         this.user = null;
-        //         return;
-        //     }
-        //     this.user = {
-        //         name: user.email,
-        //         uid: user.uid
-        //     };
-        // });
     }
 }

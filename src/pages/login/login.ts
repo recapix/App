@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController, AlertController } from 'ionic-angular';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 
-import { HomePage, SignupPage, ForgotPasswordPage } from '../';
+import { TabsNavigationPage, SignupPage, ForgotPasswordPage } from '../';
 
 import { AngularFireAuth } from 'angularfire2/auth';
 import { StorageService } from "../../services";
@@ -24,11 +24,11 @@ export class LoginPage {
     private appStorage: StorageService
   ) {
 
-    this.main_page = { component: HomePage };
+    this.main_page = { component: TabsNavigationPage };
 
     this.login = new FormGroup({
-      email: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required)
+      email: new FormControl('renan.leite@globo.com', Validators.required),
+      password: new FormControl('N2N6x6x4', Validators.required)
     });
   }
 
@@ -36,7 +36,7 @@ export class LoginPage {
     this.showLoading();
     this.afAuth.auth
       .signInWithEmailAndPassword(this.login.value.email, this.login.value.password)
-      .then(resolve => { 
+      .then(resolve => {
         this.appStorage.set("auth.user", { uid: resolve.uid, email: resolve.email }).then(() => {
           this.loading.dismiss();
           debugger;
@@ -80,7 +80,7 @@ export class LoginPage {
     this.nav.push(ForgotPasswordPage);
   }
 
-  showLoading(){    
+  showLoading() {
     this.loading = this.loadingCtrl.create();
     this.loading.present();
   }
