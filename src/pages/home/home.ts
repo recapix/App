@@ -25,7 +25,8 @@ export class HomePage {
                     .subscribe((observer) => {
                         let toast = this.toastCtrl.create({
                             message: `Welcome ${observer.name}`,
-                            duration: 3000
+                            showCloseButton: true,
+                            closeButtonText: 'Ok'
                         });
                         toast.present();
                     });
