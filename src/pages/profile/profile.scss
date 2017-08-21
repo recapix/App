@@ -60,13 +60,13 @@ profile-page {
 					.social-presence-value
 					{
 						margin: 0px;
-						font-size: 2.2rem;
+						font-size: 2rem;
 					}
 
 					.social-presence-title
 					{
 						margin: 0px;
-						font-size: 1.2rem;
+						font-size: 0.90rem;
 						font-weight: 400;
 						line-height: 1.1;
 						letter-spacing: 0.2px;
@@ -199,6 +199,18 @@ profile-page {
 		}
 	}
 }
+
+ion-app.wp {
+	profile-page {
+		.user-content-segment
+		{
+			@include justify-content(center);
+
+			@include segment-button-wp-styles();
+		}
+	}
+}
+
 ion-app.ios {
 	profile-page {
 		.user-content-segment

@@ -39,7 +39,6 @@ export class LoginPage {
       .then(resolve => {
         this.appStorage.set("auth.user", { uid: resolve.uid, email: resolve.email }).then(() => {
           this.loading.dismiss();
-          debugger;
           this.nav.setRoot(this.main_page.component);
         });
       })
@@ -83,6 +82,10 @@ export class LoginPage {
   showLoading() {
     this.loading = this.loadingCtrl.create();
     this.loading.present();
+  }
+
+  sharePost(post){
+    console.log("Post opened ", post);
   }
 
 }
